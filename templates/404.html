@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block content %}
+<div class="page-container text-center">
+    <div class="card error-card">
+        <div class="error-code">404</div>
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-text">
+            {% if error_message %}
+                {{ error_message }}
+            {% else %}
+                The page you are looking for does not exist or has been moved.
+            {% endif %}
+        </p>
+        <div class="error-actions">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Return to Dashboard</a>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Go to Homepage</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

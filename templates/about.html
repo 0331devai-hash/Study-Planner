@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}About StudyPlanner{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="card about-card">
+        <div class="about-header">
+            <h1 class="page-title">About StudyPlanner</h1>
+            <p class="page-subtitle">A Production-Grade Academic Time Management System</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Project Mission</h2>
+            <p>StudyPlanner is engineered specifically for students looking to optimize their study hours, manage coursework deadlines, and maintain focus. Built with Python, Flask, SQLAlchemy, and modern CSS3, it offers an intuitive workflow for academic success.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Key Capabilities</h2>
+            <ul class="about-list">
+                <li><strong>Task Organization:</strong> Assign priority tiers (High, Medium, Low) and monitor progress (Pending, In Progress, Completed).</li>
+                <li><strong>Integrated Stopwatch Timer:</strong> Accurately log focus sessions and automatically aggregate total study hours.</li>
+                <li><strong>Dynamic Search & Filtering:</strong> Instantly filter tasks by status, priority, or search keywords with smart pagination.</li>
+                <li><strong>Enterprise Security:</strong> Built with Flask-WTF CSRF protection, Flask-Login user sessions, Flask-Limiter rate protection, and Werkzeug password hashing.</li>
+            </ul>
+        </div>
+
+        <div class="about-section">
+            <h2>Technology Stack</h2>
+            <div class="tech-stack-badges">
+                <span class="tech-badge">Python 3.10</span>
+                <span class="tech-badge">Flask Framework</span>
+                <span class="tech-badge">SQLAlchemy ORM</span>
+                <span class="tech-badge">SQLite3</span>
+                <span class="tech-badge">WTForms</span>
+                <span class="tech-badge">HTML5 & Vanilla CSS3</span>
+                <span class="tech-badge">Vanilla JavaScript</span>
+                <span class="tech-badge">Render.com</span>
+            </div>
+        </div>
+
+        <div class="about-footer">
+            <a href="{{ url_for('index') }}" class="btn btn-primary">&larr; Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

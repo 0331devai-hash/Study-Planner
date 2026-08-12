@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div>
+            <h1 class="page-title">Study Dashboard</h1>
+            <p class="page-subtitle">Track your academic goals, task priorities, and total study duration.</p>
+        </div>
+        <div class="dashboard-actions">
+            <a href="{{ url_for('task_new') }}" class="btn btn-primary">+ Create New Task</a>
+        </div>
+    </div>
+
+    <!-- Summary Metrics Grid -->
+    <div class="metrics-grid">
+        <div class="metric-card card-total">
+            <div class="metric-icon">📌</div>
+            <div class="metric-data">
+                <span class="metric-value">{{ total_tasks }}</span>
+                <span class="metric-label">Total Tasks</span>
+            </div>
+        </div>
+
+        <div class="metric-card card-pending">
+            <div class="metric-icon">⏳</div>
+            <div class="metric-data">
+                <span class="metric-value">{{ pending_count }}</span>
+                <span class="metric-label">Pending</span>
+            </div>
+        </div>
+
+        <div class="metric-card card-progress">
+            <div class="metric-icon">⚡</div>
+            <div class="metric-data">
+                <span class="metric-value">{{ in_progress_count }}</span>
+                <span class="metric-label">In Progress</span>
+            </div>
+        </div>
+
+        <div class="metric-card card-completed">
+            <div class="metric-icon">🎉</div>
+            <div class="metric-data">
+                <span class="metric-value">{{ completed_count }}</span>
+                <span class="metric-label">Completed</span>
+            </div>
+        </div>
+
+        <div class="metric-card card-timer">
+            <div class="metric-icon">⏱️</div>
+            <div class="metric-data">
+                <span class="metric-value">{{ total_study_time }}</span>
+                <span class="metric-label">Total Time Studied</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content Layout -->
+    <div class="dashboard-content-grid">
+        <!-- Upcoming Deadlines & Priority Tasks -->
+        <div class="card content-card">
+            <div class="card-header">
+                <h3 class="card-title">Priority Tasks & Deadlines</h3>
+                <a href="{{ url_for('task_list') }}" class="btn btn-link btn-sm">View All Tasks &rarr;</a>
+            </div>
+            <div class="card-body">
+                {% if upcoming_tasks %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Task Title</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th>Due Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for task in upcoming_tasks %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ url_for('task_detail', id=task.id) }}" class="task-title-link">
+                                                <strong>{{ task.title }}</strong>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <span class="priority-tag {{ task.get_priority_color() }}">{{ task.priority }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge {{ task.get_status_badge() }}">{{ task.status }}</span>
+                                        </td>
+                                        <td>
+                                            {% if task.due_date %}
+                                                <span class="due-date">{{ task.due_date.strftime('%b %d, %Y %I:%M %p') }}</span>
+                                            {% else %}
+                                                <span class="text-muted">No deadline</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="{{ url_for('timer', id=task.id) }}" class="btn btn-sm btn-secondary" title="Study Timer">⏱️ Timer</a>
+                                                <a href="{{ url_for('task_edit', id=task.id) }}" class="btn btn-sm btn-outline-primary" title="Edit Task">✏️ Edit</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <div class="empty-icon">🎯</div>
+                        <h3>No Active Priority Tasks</h3>
+                        <p>You have no pending or in-progress tasks right now. Create a new task to get started!</p>
+                        <a href="{{ url_for('task_new') }}" class="btn btn-primary btn-sm">+ Create Task</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Quick Tips & Motivational Panel -->
+        <div class="card content-card sidebar-card">
+            <div class="card-header">
+                <h3 class="card-title">Study Tips & Habits</h3>
+            </div>
+            <div class="card-body">
+                <div class="tip-item">
+                    <span class="tip-icon">🧠</span>
+                    <div>
+                        <h4>Pomodoro Technique</h4>
+                        <p>Study in 25-minute focused bursts using our Study Timer, followed by a 5-minute break.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🎯</span>
+                    <div>
+                        <h4>Priority First</h4>
+                        <p>Tackle High-priority tasks during your peak energy hours in the morning.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">📈</span>
+                    <div>
+                        <h4>Consistent Progress</h4>
+                        <p>Log at least 1-2 hours of targeted study sessions each day to prevent cramming.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

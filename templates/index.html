@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to StudyPlanner{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">Master Your Study Schedule, <span class="gradient-text">Elevate Your Grades</span></h1>
+            <p class="hero-subtitle">
+                StudyPlanner helps students organize coursework, set deadlines, track study hours with an integrated focus timer, and boost academic performance.
+            </p>
+            <div class="hero-cta">
+                <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Start Planning Free &rarr;</a>
+                <a href="{{ url_for('login') }}" class="btn btn-secondary btn-lg">Log In to Account</a>
+            </div>
+        </div>
+        <div class="hero-card-preview">
+            <div class="mockup-card">
+                <div class="mockup-header">
+                    <span class="mockup-dot red"></span>
+                    <span class="mockup-dot yellow"></span>
+                    <span class="mockup-dot green"></span>
+                    <span class="mockup-title">StudyPlanner Dashboard</span>
+                </div>
+                <div class="mockup-body">
+                    <div class="mockup-stat-row">
+                        <div class="mockup-stat">
+                            <span class="num">12</span>
+                            <span class="lbl">Active Tasks</span>
+                        </div>
+                        <div class="mockup-stat">
+                            <span class="num">18.5h</span>
+                            <span class="lbl">Studied This Week</span>
+                        </div>
+                        <div class="mockup-stat">
+                            <span class="num">85%</span>
+                            <span class="lbl">Completion</span>
+                        </div>
+                    </div>
+                    <div class="mockup-task">
+                        <span class="task-check">✓</span>
+                        <span class="task-name">Computer Architecture Exam Prep</span>
+                        <span class="badge badge-success">Completed</span>
+                    </div>
+                    <div class="mockup-task active">
+                        <span class="task-check">⏱️</span>
+                        <span class="task-name">Database Systems Capstone Project</span>
+                        <span class="badge badge-warning">In Progress</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features-section">
+    <div class="features-container">
+        <h2 class="section-title text-center">Everything You Need for Academic Success</h2>
+        <p class="section-subtitle text-center">Designed specifically for students balancing multiple courses and deadlines.</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3 class="feature-title">Smart Task Management</h3>
+                <p class="feature-text">Organize study tasks by priority (High, Medium, Low) and track progress across Pending, In Progress, and Completed states.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⏱️</div>
+                <h3 class="feature-title">Integrated Focus Timer</h3>
+                <p class="feature-text">Track exact study duration for each task with a built-in stopwatch timer that automatically calculates total hours spent studying.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Progress Analytics</h3>
+                <p class="feature-text">Monitor upcoming deadlines and view study stats at a glance through clean, visual dashboard summary metrics.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">Secure & Mobile Ready</h3>
+                <p class="feature-text">Production-grade security with hashed passwords, CSRF protection, rate limiting, and a mobile-responsive interface.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

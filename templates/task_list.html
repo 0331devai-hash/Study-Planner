@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}My Tasks{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">My Study Tasks</h1>
+            <p class="page-subtitle">Search, filter, manage, and track time for all your coursework assignments.</p>
+        </div>
+        <div>
+            <a href="{{ url_for('task_new') }}" class="btn btn-primary">+ Create New Task</a>
+        </div>
+    </div>
+
+    <!-- Search & Filter Controls Bar -->
+    <div class="card filter-card">
+        <form method="GET" action="{{ url_for('task_list') }}" class="filter-form">
+            <div class="filter-grid">
+                <div class="form-group search-group">
+                    {{ form.query.label(class="form-label") }}
+                    {{ form.query(class="form-control", placeholder="Search title or description...") }}
+                </div>
+                <div class="form-group">
+                    {{ form.status.label(class="form-label") }}
+                    {{ form.status(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.priority.label(class="form-label") }}
+                    {{ form.priority(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.sort_by.label(class="form-label") }}
+                    {{ form.sort_by(class="form-control") }}
+                </div>
+                <div class="form-group filter-actions">
+                    {{ form.submit(class="btn btn-secondary btn-block") }}
+                    <a href="{{ url_for('task_list') }}" class="btn btn-outline-secondary btn-block">Reset</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Task Cards Container -->
+    {% if tasks %}
+        <div class="tasks-grid">
+            {% for task in tasks %}
+                <div class="card task-card">
+                    <div class="task-card-header">
+                        <span class="priority-tag {{ task.get_priority_color() }}">{{ task.priority }} Priority</span>
+                        <span class="badge {{ task.get_status_badge() }}">{{ task.status }}</span>
+                    </div>
+
+                    <div class="task-card-body">
+                        <h3 class="task-title">
+                            <a href="{{ url_for('task_detail', id=task.id) }}">{{ task.title }}</a>
+                        </h3>
+                        <p class="task-desc">
+                            {% if task.description %}
+                                {{ task.description | truncate(120) }}
+                            {% else %}
+                                <em class="text-muted">No description provided.</em>
+                            {% endif %}
+                        </p>
+                    </div>
+
+                    <div class="task-card-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">📅 Due:</span>
+                            <span class="meta-val">
+                                {% if task.due_date %}
+                                    {{ task.due_date.strftime('%b %d, %Y') }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">⏱️ Studied:</span>
+                            <span class="meta-val">{{ task.formatted_study_time() }}</span>
+                        </div>
+                    </div>
+
+                    <div class="task-card-actions">
+                        <a href="{{ url_for('timer', id=task.id) }}" class="btn btn-sm btn-success">⏱️ Study Timer</a>
+                        <a href="{{ url_for('task_edit', id=task.id) }}" class="btn btn-sm btn-outline-primary">✏️ Edit</a>
+                        
+                        <form method="POST" action="{{ url_for('task_delete', id=task.id) }}" class="delete-task-form" onsubmit="return confirmDeleteTask('{{ task.title }}');">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">🗑️ Delete</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination Controls -->
+        {% if pagination.pages > 1 %}
+            <div class="pagination-container">
+                <ul class="pagination">
+                    {% if pagination.has_prev %}
+                        <li class="page-item">
+                            <a href="{{ url_for('task_list', page=pagination.prev_num, query=request.args.get('query', ''), status=request.args.get('status', 'All'), priority=request.args.get('priority', 'All'), sort_by=request.args.get('sort_by', 'due_date_asc')) }}" class="page-link">&laquo; Previous</a>
+                        </li>
+                    {% endif %}
+
+                    {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+                        {% if page_num %}
+                            <li class="page-item {% if page_num == pagination.page %}active{% endif %}">
+                                <a href="{{ url_for('task_list', page=page_num, query=request.args.get('query', ''), status=request.args.get('status', 'All'), priority=request.args.get('priority', 'All'), sort_by=request.args.get('sort_by', 'due_date_asc')) }}" class="page-link">{{ page_num }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">&hellip;</span></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if pagination.has_next %}
+                        <li class="page-item">
+                            <a href="{{ url_for('task_list', page=pagination.next_num, query=request.args.get('query', ''), status=request.args.get('status', 'All'), priority=request.args.get('priority', 'All'), sort_by=request.args.get('sort_by', 'due_date_asc')) }}" class="page-link">Next &raquo;</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="card empty-state-card">
+            <div class="empty-state">
+                <div class="empty-icon">🔍</div>
+                <h3>No Tasks Found</h3>
+                <p>We couldn't find any study tasks matching your current search criteria or filters.</p>
+                <a href="{{ url_for('task_new') }}" class="btn btn-primary">+ Create New Task</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

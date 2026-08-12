@@ -1,0 +1,43 @@
+========================================================================
+UNIVERSITY OF GHANA - DEPARTMENT OF COMPUTER SCIENCE
+CSCD602: ADVANCED SOFTWARE ENGINEERING (INDIVIDUAL PROJECT-BASED EXAM)
+DEPLOYMENT & SOURCE CODE LINKS DOCUMENT
+========================================================================
+
+Student Name:      [Your Full Name]
+Student ID:        [Your Student ID]
+Course Code:       CSCD602
+Course Title:      Advanced Software Engineering
+Project Title:     StudyPlanner - Academic Planning & Study Time Management System
+Date of Submission: August 12, 2026
+
+------------------------------------------------------------------------
+1. LIVE APPLICATION ACCESSIBILITY
+------------------------------------------------------------------------
+Live Application URL:   https://studyplanner-capstone.onrender.com
+Health Check Endpoint:  https://studyplanner-capstone.onrender.com/health
+
+------------------------------------------------------------------------
+2. TEST USER CREDENTIALS
+------------------------------------------------------------------------
+User Role:         Standard Student Account
+Username:          testuser
+Password:          test123
+Email:             testuser@example.com
+
+------------------------------------------------------------------------
+3. ADMINISTRATIVE CREDENTIALS (IF APPLICABLE)
+------------------------------------------------------------------------
+Admin URL:         N/A (Role-based student isolation applied at database level)
+Admin Username:    testuser
+Admin Password:    test123
+
+------------------------------------------------------------------------
+4. SOURCE CODE REPOSITORY
+------------------------------------------------------------------------
+Repository Provider: GitHub
+Repository URL:      https://github.com/your-username/studyplanner
+Branch:              main
+Commit Hash:         [Latest Commit Hash]
+
+========================================================================

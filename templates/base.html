@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="StudyPlanner - A personal study planning and time tracking tool for students.">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{% block title %}StudyPlanner{% endblock %} - Smart Study Management</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar" id="main-navbar">
+        <div class="navbar-container">
+            <a href="{{ url_for('index') }}" class="navbar-brand">
+                <span class="brand-icon">📚</span>
+                <span class="brand-text">StudyPlanner</span>
+            </a>
+            
+            <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle Navigation Menu">
+                <span class="hamburger"></span>
+            </button>
+            
+            <div class="navbar-menu" id="navbar-menu">
+                <ul class="navbar-nav">
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="{{ url_for('dashboard') }}" class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('task_list') }}" class="nav-link {% if request.endpoint in ['task_list', 'task_new', 'task_edit', 'task_detail'] %}active{% endif %}">My Tasks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('about') }}" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About</a>
+                        </li>
+                        <li class="nav-item nav-user">
+                            <span class="user-greeting">👋 Hi, <strong>{{ current_user.username }}</strong></span>
+                            <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">Log Out</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{{ url_for('about') }}" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('login') }}" class="nav-link {% if request.endpoint == 'login' %}active{% endif %}">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('register') }}" class="btn btn-primary btn-sm">Get Started</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages Container -->
+    <div class="flash-messages-container" id="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade-in" role="alert">
+                        <span class="alert-icon">
+                            {% if category == 'success' %}✓{% elif category == 'danger' %}⚠️{% elif category == 'warning' %}⚡{% else %}ℹ️{% endif %}
+                        </span>
+                        <span class="alert-message">{{ message }}</span>
+                        <button type="button" class="alert-close" onclick="this.parentElement.remove()" aria-label="Close alert">&times;</button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; {{ current_year }} StudyPlanner App. Designed for Academic Excellence.</p>
+            <div class="footer-links">
+                <a href="{{ url_for('about') }}">About</a> &bull; 
+                <a href="{{ url_for('health') }}" target="_blank">System Health</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

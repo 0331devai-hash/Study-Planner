@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Study Timer - {{ task.title }}{% endblock %}
+
+{% block content %}
+<div class="timer-container">
+    <div class="timer-card card">
+        <div class="timer-header">
+            <a href="{{ url_for('task_detail', id=task.id) }}" class="back-link">&larr; Back to Task Details</a>
+            <span class="priority-tag {{ task.get_priority_color() }}">{{ task.priority }} Priority</span>
+        </div>
+
+        <h1 class="timer-task-title">{{ task.title }}</h1>
+        <p class="timer-task-status">Status: <span class="badge {{ task.get_status_badge() }}" id="task-status-badge">{{ task.status }}</span></p>
+
+        <!-- Digital Clock Ring -->
+        <div class="timer-display-wrapper">
+            <div class="timer-ring">
+                <div class="timer-clock" id="timer-clock">00:00:00</div>
+                <div class="timer-status-text" id="timer-status-text">Ready to Focus</div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="timer-controls">
+            <button type="button" class="btn btn-success btn-xl" id="btn-start-timer" data-task-id="{{ task.id }}">
+                ▶️ Start Study Session
+            </button>
+            <button type="button" class="btn btn-danger btn-xl" id="btn-stop-timer" data-task-id="{{ task.id }}" disabled>
+                ⏹️ Stop & Save Session
+            </button>
+        </div>
+
+        <!-- Stats Summary Footer -->
+        <div class="timer-stats-footer">
+            <div class="stat-box">
+                <span class="stat-lbl">Session Elapsed</span>
+                <span class="stat-val" id="current-session-time">00:00:00</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-lbl">Total Time Logged</span>
+                <span class="stat-val" id="total-task-time">{{ task.formatted_study_time() }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+{% endblock %}

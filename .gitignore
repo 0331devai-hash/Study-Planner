@@ -1,0 +1,24 @@
+# Python bytecode & cache files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Virtual environment
+venv/
+ENV/
+env/
+
+# Database files
+*.db
+*.sqlite3
+
+# Environment & Secret overrides
+.env
+instance/
+
+# IDE & OS settings
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

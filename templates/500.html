@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error{% endblock %}
+
+{% block content %}
+<div class="page-container text-center">
+    <div class="card error-card">
+        <div class="error-code">500</div>
+        <h1 class="error-title">Internal Server Error</h1>
+        <p class="error-text">Something went wrong on our server. Our team has been notified. Please try again shortly.</p>
+        <div class="error-actions">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Return to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

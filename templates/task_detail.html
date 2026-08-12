@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}{{ task.title }} - Details{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="detail-header">
+        <a href="{{ url_for('task_list') }}" class="back-link">&larr; Back to Tasks</a>
+        <div class="detail-actions">
+            <a href="{{ url_for('timer', id=task.id) }}" class="btn btn-success">Open Study Timer</a>
+            <a href="{{ url_for('task_edit', id=task.id) }}" class="btn btn-outline-primary">Edit Task</a>
+        </div>
+    </div>
+
+    <div class="card detail-card">
+        <div class="detail-card-header">
+            <div class="badges-row">
+                <span class="priority-tag {{ task.get_priority_color() }}">{{ task.priority }} Priority</span>
+                <span class="badge {{ task.get_status_badge() }}">{{ task.status }}</span>
+            </div>
+            <h1 class="detail-title">{{ task.title }}</h1>
+        </div>
+
+        <div class="detail-card-body">
+            <div class="detail-meta-grid">
+                <div class="detail-meta-item">
+                    <span class="label">Due Date</span>
+                    <span class="val">
+                        {% if task.due_date %}
+                            {{ task.due_date.strftime('%B %d, %Y at %I:%M %p') }}
+                        {% else %}
+                            No deadline set
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="detail-meta-item">
+                    <span class="label">Total Time Studied</span>
+                    <span class="val highlight">{{ task.formatted_study_time() }}</span>
+                </div>
+                <div class="detail-meta-item">
+                    <span class="label">Created On</span>
+                    <span class="val">{{ task.created_at.strftime('%B %d, %Y') }}</span>
+                </div>
+            </div>
+
+            <div class="detail-description">
+                <h3>Description & Notes</h3>
+                {% if task.description %}
+                    <p class="description-text">{{ task.description }}</p>
+                {% else %}
+                    <p class="text-muted">No description or notes provided for this task.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Session History Table -->
+    <div class="card session-history-card">
+        <div class="card-header">
+            <h3 class="card-title">Study Sessions History</h3>
+        </div>
+        <div class="card-body">
+            {% if sessions %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for sess in sessions %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ sess.start_time.strftime('%b %d, %Y %I:%M:%S %p') }}</td>
+                                    <td>
+                                        {% if sess.end_time %}
+                                            {{ sess.end_time.strftime('%b %d, %Y %I:%M:%S %p') }}
+                                        {% else %}
+                                            <span class="badge badge-warning">Active Now</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% set mins = (sess.get_duration() // 60) %}
+                                        {% set secs = (sess.get_duration() % 60) %}
+                                        <strong>{{ mins }}m {{ secs }}s</strong>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">[!]</div>
+                    <p>No study sessions logged for this task yet. Launch the study timer to record your focus time!</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
