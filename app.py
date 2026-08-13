@@ -56,6 +56,20 @@ def create_app(config_name: str = None) -> Flask:
     # Initialize Extensions
     db.init_app(app)
 
+    with app.app_context():
+        db.create_all()
+        # Auto-seed testuser if database is newly initialized
+        try:
+            if not User.query.filter_by(username="testuser").first():
+                test_user = User(username="testuser", email="testuser@example.com")
+                test_user.set_password("test123")
+                db.session.add(test_user)
+                db.session.commit()
+                logger.info("Auto-seeded default testuser account.")
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"Error auto-seeding default user: {str(e)}")
+
     csrf = CSRFProtect()
     csrf.init_app(app)
 
