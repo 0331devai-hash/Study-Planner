@@ -28,6 +28,7 @@ from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
+from werkzeug.middleware.proxy_fix import ProxyFix
 from config import config_by_name
 from models import db, User, Task, Session
 from forms import LoginForm, RegisterForm, TaskForm, SearchFilterForm
@@ -40,6 +41,9 @@ def create_app(config_name: str = None) -> Flask:
 
     app = Flask(__name__)
     app.config.from_object(config_by_name.get(config_name, config_by_name["default"]))
+
+    # Wrap WSGI app for reverse proxies (e.g. Render / Cloudflare)
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1, x_prefix=1)
 
     # Setup Logging
     logging.basicConfig(
