@@ -3,7 +3,7 @@
 ## Project Title: StudyPlanner - Academic Planning & Time Tracking System
 **Course:** CSCD602: Advanced Software Engineering  
 **Institution:** University of Ghana, Department of Computer Science  
-**Author:** [Your Full Name] (Student ID: [Your Student ID])  
+**Author:** Frank Eguasi Tandoh (Student ID: 22425049)  
 
 ---
 

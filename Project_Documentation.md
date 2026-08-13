@@ -8,8 +8,8 @@
 
 # EXAMINATION PROJECT: STUDYPLANNER TECHNICAL DOCUMENTATION
 
-- **Student Name:** Dev  
-- **Student ID:** 10987654  
+- **Student Name:** Frank Eguasi Tandoh  
+- **Student ID:** 22425049  
 - **Project Title:** StudyPlanner - A Personal Study Planning Tool  
 - **Date of Submission:** August 12, 2026  
 - **Examiner:** Prof. Solomon Mensah  

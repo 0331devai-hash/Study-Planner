@@ -4,8 +4,8 @@ CSCD602: ADVANCED SOFTWARE ENGINEERING (INDIVIDUAL PROJECT-BASED EXAM)
 DEPLOYMENT & SOURCE CODE LINKS DOCUMENT
 ========================================================================
 
-Student Name:      Dev
-Student ID:        10987654
+Student Name:      Frank Eguasi Tandoh
+Student ID:        22425049
 Course Code:       CSCD602
 Course Title:      Advanced Software Engineering
 Project Title:     StudyPlanner - A Personal Study Planning Tool

@@ -3,6 +3,7 @@
 **Course:** CSCD602: Advanced Software Engineering  
 **Institution:** University of Ghana, Department of Computer Science  
 **Project:** StudyPlanner Application  
+**Author:** Frank Eguasi Tandoh (Student ID: 22425049)  
 
 ---
 
