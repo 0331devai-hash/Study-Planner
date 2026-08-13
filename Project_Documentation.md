@@ -14,7 +14,7 @@
 - **Student ID:** [Your Student ID]
 - **Project Title:** StudyPlanner - Academic Planning & Time Tracking System
 - **Repository URL:** https://github.com/0331devai-hash/Study-Planner.git
-- **Live Application URL:** https://studyplanner-capstone.onrender.com
+- **Live Application URL:** https://study-planner-svsy.onrender.com
 
 ---
 

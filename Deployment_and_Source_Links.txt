@@ -14,8 +14,8 @@ Date of Submission: August 12, 2026
 ------------------------------------------------------------------------
 1. LIVE APPLICATION ACCESSIBILITY
 ------------------------------------------------------------------------
-Live Application URL:   https://studyplanner-capstone.onrender.com
-Health Check Endpoint:  https://studyplanner-capstone.onrender.com/health
+Live Application URL:   https://study-planner-svsy.onrender.com
+Health Check Endpoint:  https://study-planner-svsy.onrender.com/health
 
 ------------------------------------------------------------------------
 2. TEST USER CREDENTIALS
