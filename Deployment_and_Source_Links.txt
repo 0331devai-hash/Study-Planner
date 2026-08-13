@@ -4,12 +4,13 @@ CSCD602: ADVANCED SOFTWARE ENGINEERING (INDIVIDUAL PROJECT-BASED EXAM)
 DEPLOYMENT & SOURCE CODE LINKS DOCUMENT
 ========================================================================
 
-Student Name:      [Your Full Name]
-Student ID:        [Your Student ID]
+Student Name:      Dev
+Student ID:        10987654
 Course Code:       CSCD602
 Course Title:      Advanced Software Engineering
-Project Title:     StudyPlanner - Academic Planning & Study Time Management System
+Project Title:     StudyPlanner - A Personal Study Planning Tool
 Date of Submission: August 12, 2026
+Examiners:         Prof. Solomon Mensah
 
 ------------------------------------------------------------------------
 1. LIVE APPLICATION ACCESSIBILITY
@@ -38,6 +39,6 @@ Admin Password:    test123
 Repository Provider: GitHub
 Repository URL:      https://github.com/0331devai-hash/Study-Planner.git
 Branch:              main
-Commit Hash:         [Latest Commit Hash]
+Commit Hash:         ec4cd38
 
 ========================================================================
